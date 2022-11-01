@@ -49,7 +49,7 @@ const Slider = () => {
         },
     ]
     return (
-        <div className="carousel w-full">
+        <div className="carousel w-full h-[600px]">
             {
                 slider.map(slide => <SliderItem
                     key={slide.id}

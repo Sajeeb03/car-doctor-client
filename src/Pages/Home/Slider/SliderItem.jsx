@@ -5,7 +5,7 @@ const SliderItem = ({ slide }) => {
     return (
         <div id={`slide${id}`} className="carousel-item relative w-full">
             <div className='slider-img'>
-                <img src={image} alt="" className="w-full h-full rounded-xl" />
+                <img src={image} alt="" className="w-[1140px] h-full rounded-xl" />
             </div>
             <div className="absolute flex justify-end transform -translate-y-1/2 right-5 bottom-0">
                 <a href={`#slide${prev}`} className="btn btn-circle mr-2">❮</a>
