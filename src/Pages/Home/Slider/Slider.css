@@ -9,3 +9,9 @@
     display: inline-block;
     background: linear-gradient(to right, #151515 0%, rgba(21, 21, 21, 0) 100%);
 }
+.trapezium {
+    width: 296px;
+    border-bottom: 50px solid orangered;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+}

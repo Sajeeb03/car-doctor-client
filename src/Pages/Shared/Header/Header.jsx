@@ -13,6 +13,7 @@ const Header = () => {
     const menuItems = <>
 
         <Link className={user?.uid ? 'mt-3' : 'mt-0'} to='/'>Home</Link>
+        <Link className={user?.uid ? 'mt-3 ml-3' : 'mt-0 ml-3'} to='/orders'>Orders</Link>
         {
             user?.uid ? <p onClick={handleLogOut} className='btn btn-link ml-3'>Log out</p> : <Link className='ml-3' to='/user/login'>Login</Link>
         }

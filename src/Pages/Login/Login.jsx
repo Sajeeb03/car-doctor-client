@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa";
 import img from '../../assets/images/login/login.svg'
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
@@ -8,16 +8,40 @@ import { GoogleAuthProvider } from 'firebase/auth';
 const Login = () => {
     const { logIn, googleSignIn } = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location?.state?.from?.pathname || '/';
+    // console.log(location.state.from.pathname)
     const handleLogIn = e => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
         // console.log(email, password);
+
         logIn(email, password)
             .then(res => {
                 console.log(res.user);
-                form.reset();
+                const currentUser = {
+                    user: res.user.email
+                }
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                }).then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        localStorage.setItem("token", data.token)
+                        navigate(from, { replace: true })
+                        form.reset();
+                    })
+                    .catch(err => console.error(err))
+
+
+
             })
             .catch(err => {
                 console.error(err)
@@ -28,6 +52,7 @@ const Login = () => {
         googleSignIn(googleProvider)
             .then(res => {
                 console.log(res.user);
+                navigate(from, { replace: true })
             })
             .catch(err => console.error(err))
     }

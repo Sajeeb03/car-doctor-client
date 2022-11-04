@@ -1,9 +1,9 @@
-import { ArrowLongRightIcon } from '@heroicons/react/24/solid';
+
 import React from 'react';
 import { FaStar } from "react-icons/fa";
 
 const ProductCard = ({ product }) => {
-    console.log(product);
+    // console.log(product);
     const { name, price, img } = product;
     return (
         <div className="card w-full glass shadow-lg p-4">
