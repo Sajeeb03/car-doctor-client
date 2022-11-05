@@ -4,11 +4,13 @@ import React, { useEffect, useState } from 'react';
 const OrdersRow = ({ order, handleDelete, handleUpdate }) => {
     const { serviceName, email, customer, status, price, service } = order;
     const [ordered, setOrdered] = useState({});
-
+    console.log(order)
     useEffect(() => {
-        fetch(`http://localhost:5000/services/${service}`)
+        fetch(`https://genius-car-server-eta-two.vercel.app/services/${service}`)
             .then(res => res.json())
-            .then(data => setOrdered(data.data))
+            .then(data => {
+                setOrdered(data.data);
+            })
             .catch(err => console.error(err))
     }, [service])
 
@@ -25,7 +27,7 @@ const OrdersRow = ({ order, handleDelete, handleUpdate }) => {
                 <div className="flex items-center space-x-3">
                     <div className="avatar">
                         <div className="w-24 rounded">
-                            <img src={ordered.img} alt="Avatar Tailwind CSS Component" />
+                            <img src={ordered?.img} alt="Avatar Tailwind CSS Component" />
                         </div>
                     </div>
                     <div>

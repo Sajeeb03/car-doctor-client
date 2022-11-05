@@ -14,7 +14,7 @@ const Checkout = () => {
     const [service, setService] = useState({});
     useEffect(() => {
 
-        fetch(`http://localhost:5000/services/${id}`)
+        fetch(`https://genius-car-server-eta-two.vercel.app/services/${id}`)
             .then(res => res.json())
             .then(data => setService(data.data))
             .catch(err => console.error(err))
@@ -42,7 +42,7 @@ const Checkout = () => {
             status: 'Pending'
         }
 
-        fetch('http://localhost:5000/orders', {
+        fetch('https://genius-car-server-eta-two.vercel.app/orders', {
             method: "POST",
             headers: {
                 'content-type': 'application/json',

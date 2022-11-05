@@ -12,7 +12,7 @@ const Orders = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+        fetch(`https://genius-car-server-eta-two.vercel.app/orders?email=${user?.email}`, {
             headers: {
 
                 authorization: `Bearer ${localStorage.getItem('token')}`
@@ -25,7 +25,7 @@ const Orders = () => {
                 return res.json()
             })
             .then(data => {
-                // console.log(data.data)
+                console.log(data.data)
                 setOrders(data.data)
             })
             .catch(err => console.error(err))
@@ -35,7 +35,7 @@ const Orders = () => {
         console.log(order._id)
         const confirm = window.confirm("Are you sure?")
         if (confirm) {
-            fetch(`http://localhost:5000/orders/${order._id}`, {
+            fetch(`https://genius-car-server-eta-two.vercel.app/orders/${order._id}`, {
                 method: 'delete',
                 headers: {
 
@@ -54,7 +54,7 @@ const Orders = () => {
     }
 
     const handleUpdate = id => {
-        fetch(`http://localhost:5000/orders/${id}`, {
+        fetch(`https://genius-car-server-eta-two.vercel.app/orders/${id}`, {
             method: 'PATCH',
             headers: {
                 "content-type": "application/json",
