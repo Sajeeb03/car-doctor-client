@@ -3,18 +3,17 @@ import React, { useEffect, useState } from 'react';
 
 const OrdersRow = ({ order, handleDelete, handleUpdate }) => {
     const { serviceName, email, customer, status, price, service } = order;
-    const [ordered, setOrdered] = useState({});
-    console.log(order)
+    const [ordered, setOrdered] = useState([]);
+
     useEffect(() => {
         fetch(`https://genius-car-server-eta-two.vercel.app/services/${service}`)
             .then(res => res.json())
             .then(data => {
                 setOrdered(data.data);
+
             })
             .catch(err => console.error(err))
     }, [service])
-
-
 
     return (
         <tr>

@@ -4,6 +4,7 @@ import { FaGoogle } from "react-icons/fa";
 import img from '../../assets/images/login/login.svg'
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
+import { verifyToken } from '../../api/authToken';
 
 const Login = () => {
     const { logIn, googleSignIn } = useContext(AuthContext);
@@ -40,21 +41,34 @@ const Login = () => {
                     })
                     .catch(err => console.error(err))
 
-
-
             })
             .catch(err => {
                 console.error(err)
             })
     }
 
-    const handleGoogleSignIn = () => {
-        googleSignIn(googleProvider)
-            .then(res => {
-                console.log(res.user);
-                navigate(from, { replace: true })
-            })
-            .catch(err => console.error(err))
+    const handleGoogleSignIn = async () => {
+
+        try {
+            const res = await googleSignIn(googleProvider);
+            const user = res.user;
+            console.log(user)
+            // verifyToken(user);
+            const data = await verifyToken(user);
+            if (data.success) {
+                return navigate(from, { replace: true })
+            }
+        } catch (error) {
+            console.error(error)
+        }
+        // googleSignIn(googleProvider)
+        //     .then(res => {
+        //         console.log(res.user);
+        //         const user = res.user;
+        //         verifyToken(user);
+        //         // navigate(from, { replace: true })
+        //     })
+        //     .catch(err => console.error(err))
     }
     return (
         <div className="hero">

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { verifyToken } from '../../api/authToken';
 
 import img from '../../assets/images/login/login.svg'
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
@@ -15,8 +16,11 @@ const Register = () => {
         // console.log(email, password, name);
         createUser(email, password)
             .then(res => {
-                console.log(res.user);
-                form.reset()
+                const user = res.user;
+
+                // console.log(user);
+                verifyToken(user);
+                // form.reset()
             })
             .catch(err => {
                 console.error(err)

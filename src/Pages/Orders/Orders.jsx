@@ -10,6 +10,8 @@ const Orders = () => {
     const [orders, setOrders] = useState([]);
     const [refresh, setRefresh] = useState(false);
 
+    const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
         fetch(`https://genius-car-server-eta-two.vercel.app/orders?email=${user?.email}`, {
@@ -27,6 +29,7 @@ const Orders = () => {
             .then(data => {
                 console.log(data.data)
                 setOrders(data.data)
+                setLoading(false)
             })
             .catch(err => console.error(err))
     }, [user?.email, refresh, logOut])
@@ -69,7 +72,11 @@ const Orders = () => {
             })
             .catch(err => console.log(err))
     }
-
+    if (loading) {
+        return <div className='h-screen flex justify-center items-center'>
+            <button className="btn loading">loading</button>
+        </div>
+    }
     return (
         <div className=''>
             <div className='w-full relative'>
@@ -102,7 +109,7 @@ const Orders = () => {
                     <tbody>
 
                         {
-                            orders.map(order => <OrdersRow
+                            orders?.map(order => <OrdersRow
                                 key={order._id}
                                 order={order}
                                 handleDelete={handleDelete}
